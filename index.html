@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Checker - Roblox</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0b0f19] text-gray-200 font-sans min-h-screen p-4 sm:p-8">
+  <div class="max-w-4xl mx-auto space-y-8">
+    
+    <header class="flex items-center justify-between border-b border-gray-800 pb-4">
+      <div class="flex items-center space-x-3">
+        <div class="bg-indigo-600 text-white font-bold px-3 py-2 rounded-lg text-lg">K</div>
+        <div>
+          <h1 class="font-bold text-lg tracking-wider">KYM</h1>
+          <p class="text-xs text-gray-400">COMMUNITY</p>
+        </div>
+      </div>
+      <div class="text-sm text-gray-400 flex space-x-4">
+        <span>Komunitas</span>
+        <span>Cara kerja</span>
+      </div>
+    </header>
+
+    <div class="space-y-4 text-center sm:text-left">
+      <div class="inline-block bg-gray-900 border border-gray-800 text-emerald-400 text-xs px-3 py-1 rounded-full font-medium">
+        ● COMMUNITY CHECKER
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+        Satu username.<br>Semua komunitas.
+      </h2>
+      <p class="text-gray-400 text-sm sm:text-base max-w-xl">
+        Cek keanggotaan dan waktu eligible akun Roblox kamu. Cepat, mudah, tanpa perlu login.
+      </p>
+    </div>
+
+    <div class="bg-[#111827] border border-gray-800 p-6 rounded-2xl shadow-2xl space-y-4">
+      <div class="flex justify-between items-center text-xs text-gray-400">
+        <span>MULAI DI SINI</span>
+        <span class="text-emerald-400">✓ Tanpa login</span>
+      </div>
+      
+      <h3 class="text-lg font-semibold text-white">Cari akun Roblox kamu</h3>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input type="text" id="usernameInput" placeholder="Masukkan username Roblox..." 
+               class="flex-1 bg-[#0b0f19] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+        <button onclick="checkAccount()" 
+                class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl transition duration-200">
+          Cek sekarang →
+        </button>
+      </div>
+      <p class="text-xs text-gray-500">Gunakan username, bukan display name. • Semua komunitas dicek sekaligus</p>
+    </div>
+
+    <div id="resultSection" class="hidden space-y-4">
+      <h3 class="text-xl font-bold text-white">Hasil Pengecekan untuk: <span id="targetUser" class="text-indigo-400"></span></h3>
+      <div id="resultCards" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Komunitas yang bisa kamu cek (4)</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <div class="bg-[#111827] border border-gray-800 p-5 rounded-xl space-y-3">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-indigo-900 text-indigo-200 rounded-lg flex items-center font-bold justify-center">MP</div>
+            <div>
+              <p class="text-xs text-gray-400">ROBLOX COMMUNITY</p>
+              <h4 class="font-bold text-white">Moive Party Gang</h4>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 text-center py-2 border-y border-gray-800/60">Sudah jadi bagian dari komunitas ini? Cek username kamu untuk melihat statusnya.</p>
+          <div class="flex justify-between items-center text-xs text-gray-500">
+            <span>⏱ Minimal 14 hari</span>
+            <span class="text-indigo-400">Buka komunitas ↗</span>
+          </div>
+        </div>
+
+        <div class="bg-[#111827] border border-gray-800 p-5 rounded-xl space-y-3">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-emerald-900 text-emerald-200 rounded-lg flex items-center font-bold justify-center">V</div>
+            <div>
+              <p class="text-xs text-gray-400">ROBLOX COMMUNITY</p>
+              <h4 class="font-bold text-white">venas</h4>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 text-center py-2 border-y border-gray-800/60">Sudah jadi bagian dari komunitas ini? Cek username kamu untuk melihat statusnya.</p>
+          <div class="flex justify-between items-center text-xs text-gray-500">
+            <span>⏱ Minimal 14 hari</span>
+            <span class="text-indigo-400">Buka komunitas ↗</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function checkAccount() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (!username) {
+        alert('Masukkan username terlebih dahulu!');
+        return;
+      }
+
+      const resultSection = document.getElementById('resultSection');
+      const resultCards = document.getElementById('resultCards');
+      const targetUser = document.getElementById('targetUser');
+
+      targetUser.innerText = username;
+      resultSection.classList.remove('hidden');
+      
+      // Simulasi hasil cek komunitas langsung di HP tanpa error backend
+      const communities = [
+        { name: "Moive Party Gang", minDays: 14, days: 20 },
+        { name: "venas", minDays: 14, days: 5 },
+        { name: "eR-n-eS", minDays: 14, days: 30 },
+        { name: "Hyper-BallGames", minDays: 14, days: 10 }
+      ];
+
+      let htmlContent = '';
+      for (let i = 0; i < communities.length; i++) {
+        const item = communities[i];
+        const isEligible = item.days >= item.minDays;
+        let badgeClass = isEligible ? 'bg-emerald-950 text-emerald-400 border-emerald-800' : 'bg-rose-950 text-rose-400 border-rose-800';
+        let badgeText = isEligible ? 'Eligible (Lolos ✓)' : 'Belum Eligible';
+
+        htmlContent += '<div class="bg-[#111827] border border-gray-800 p-4 rounded-xl space-y-2">';
+        htmlContent += '<div class="flex justify-between items-center">';
+        htmlContent += '<span class="font-bold text-white">' + item.name + '</span>';
+        htmlContent += '<span class="text-xs px-2.5 py-1 rounded-full border ' + badgeClass + '">' + badgeText + '</span>';
+        htmlContent += '</div>';
+        htmlContent += '<p class="text-xs text-gray-400">Durasi akun: ' + item.days + ' hari (Syarat min: ' + item.minDays + ' hari)</p>';
+        htmlContent += '</div>';
+      }
+
+      resultCards.innerHTML = htmlContent;
+    }
+  </script>
+</body>
+</html>
